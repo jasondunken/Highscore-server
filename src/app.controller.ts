@@ -1,7 +1,6 @@
 import { Controller, Request, Post, Get, UseGuards } from '@nestjs/common';
 
 import { LocalAuthGuard } from './auth/local-auth.guard';
-import { JwtAuthGuard } from './auth/jwt-auth.guard';
 import { AuthService } from './auth/auth.service';
 
 @Controller()
@@ -13,15 +12,16 @@ export class AppController {
   async login(@Request() request) {
     return this.authService.login(request.user);
   }
-
-  @UseGuards(JwtAuthGuard)
-  @Get('profile')
-  getProfile(@Request() request) {
-    return request.user;
-  }
   
   @Get()
   async home() {
-    return 'found the homepage';
+    return `<html>
+              <head>
+                <title>BitByteBytes</title>
+              </head>
+              <body style="height: 100vh; display: grid; place-items: center;">
+                <div>BitByteBytes</div>
+              </body>
+            <html>`;
   }
 }
